@@ -10,16 +10,12 @@ const usaOutputFile = 'usa.txt';
 
 //Delete canada.txt and usa.txt if they already exist
 fs.unlink(canadaOutputFile, (err) => {
-    if (err && err.code !== 'ENOENT') {
-        console.error('Error deleting canada.txt:', err);
-    }
+    if (err) console.log('Error deleting canada.txt:', err);
 });
 fs.unlink(usaOutputFile, (err) => {
-    if (err && err.code !== 'ENOENT') {
-        console.error('Error deleting usa.txt:', err);
-    }
+    if (err)  console.log('Error deleting usa.txt:', err);
 });
-// Filter data for Canada and United States, and write to corresponding files
+//Filter data for Canada and United States and write to text files
 
 const canadaData = [];
 const usaData = [];
@@ -37,7 +33,7 @@ fs.createReadStream(inputFile)
     .on('end', () => {
         fs.writeFileSync(canadaOutputFile, canadaData.join('\n'));
         fs.writeFileSync(usaOutputFile, usaData.join('\n'));
-        console.log('Task completed successfully.');
+        console.log('Canada and USA data written to files');
     })
     .on('error', (err) => {
         console.error('Error reading CSV file:', err);
